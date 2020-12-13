@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>用户登录</title>
+    <link rel="stylesheet" href="/public/admin/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/admin/css/base.css">
+    <link rel="icon" href="/public/kid.jpg" sizes="16x16" type="image/png">
+</head>
+
+<body>
+    <div class="login-body">
+        <div class="login-container">
+            <h4 class="title">博客管理员登录</h4>
+            <div class="login">
+                <form action="/admin/login" method="POST" id="loginForm">
+                    <div class="form-group">
+                        <label>邮件</label>
+                        <input type="email" class="form-control" placeholder="请输入邮件地址" name="email">
+                        <div class="verifyEmail"> </div>
+                    </div>
+                    <div class="form-group">
+                        <label>密码</label>
+                        <input type="password" class="form-control" placeholder="请输入密码" name="password"
+                            value="helloWorld">
+                    </div>
+                    <button type="submit" class="btn btn-primary">登录</button>
+                </form>
+            </div>
+            <div class="tips"></div>
+        </div>
+    </div>
+    <script src="/public/admin/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/public/admin/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/public/admin/js/common.js"></script>
+    <script>
+        //这个方法放到commonjs里面
+        // function serializeToJson(form) {
+        //     var result = {}
+        //     var f = form.serializeArray() //获取表单提交的所有内容
+        //     f.forEach(function (item) {
+        //         result[item.name] = item.value;
+        //     })
+        //     return result
+        // }
+        $('#loginForm').on('submit', function () {
+            const f = $(this).serialize() //返回拼接字符串
+            const result = serializeToJson($(this)) //返回数组
+            // 修改返回值，转换成想要的对象
+            console.log(result)
+            if (result.email.trim().length == 0) {
+                alert('please input emaill')
+                return false; //阻止程序向下执行
+            } else if (result.email.trim().length > 0) {
+                // var reg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+                var reg = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
+                var remail = result.email
+                // console.log('regular')
+                if (reg.test(remail)) {
+                    // alert('邮箱格式验证成功')
+                    // return false;
+                    function ajax() {
+                        const xhr = new XMLHttpRequest()
+                        console.log(xhr)
+                        console.log(result)
+                        xhr.open('post', '/admin/login', true)
+                        xhr.onload = function () {
+                            console.log(xhr.responseText)
+                        }
+                        console.log(xhr.readyState) //获取ajax状态码。
+                        xhr.onreadystatechange = function () {} //状态码改变触发事件
+                        // xhr.setRequestHeader("Content-Type",
+                        //     'application/x-www-form-urlencoded'); //post request must be set
+                        xhr.setRequestHeader("Content-Type",
+                            'application/json'); //post request must be set
+                        var formDate = new FormData();
+                        formDate.append('email', result.email)
+                        xhr.send(
+                            // result
+                            JSON.stringify(result) //必须字符串形式传递
+                        )
+                    }
+                    ajax()
+
+                } else {
+                    alert('邮箱格式验证失败')
+                    return false;
+                }
+            }
+            // if (result.password.trim().length == 0) {
+            //     alert('please input password');
+            //     return false;
+            // }
+            // alert('准备跳转')
+            // prompt('Sure?')
+            // console.log(prompt('Sure?'))
+            //阻止默认提交
+            // return false;
+        })
+    </script>
+</body>
+
+</html>

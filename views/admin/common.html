@@ -1,0 +1,61 @@
+{% block html %}
+<link rel="stylesheet" href="/public/admin/lib/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/public/admin/css/base.css">
+<link rel="icon" href="/public/kid.jpg" sizes="16x16" type="image/png">
+
+{% endblock %}
+{% block header %}
+<div class="header">
+    <!-- 网站标志 -->
+    <div class="logo fl">
+        张皮皮Blog <i>MrZhang</i>
+    </div>
+    <!-- /网站标志 -->
+    <!-- 用户信息 -->
+    <div class="info">
+        <div class="profile dropdown fr">
+            <span class="btn dropdown-toggle" data-toggle="dropdown">
+                <!-- {{ userInfo.username}} -->
+                {{userInfo.username}}
+                <span class="caret"></span>
+            </span>
+            <ul class="dropdown-menu">
+                <li><a href="user-edit.html">个人资料</a></li>
+                <li><a href="#">退出登录</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- /用户信息 -->
+</div>
+<!-- /头部 -->
+{% endblock %}
+
+{% block aside %}
+<!-- 主体内容 -->
+<div class="content">
+    <!-- 侧边栏 -->
+    <div class="aside fl">
+        <ul class="menu list-unstyled">
+            <li>
+                <a class="item active" href="user.html">
+                    <span class="glyphicon glyphicon-user"></span>
+                    用户管理
+                </a>
+            </li>
+            <li>
+                <a class="item" href="article.html">
+                    <span class="glyphicon glyphicon-th-list"></span>
+                    文章管理
+                </a>
+            </li>
+        </ul>
+        <div class="cprt">
+            Powered by <a href="http://www.itheima.com/" target="_blank">张皮皮</a>
+        </div>
+    </div>
+    {% endblock %}
+    {% block content %}
+
+    <script src="/public/admin/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/public/admin/lib/bootstrap/js/bootstrap.min.js"></script>
+    {% endblock %}
