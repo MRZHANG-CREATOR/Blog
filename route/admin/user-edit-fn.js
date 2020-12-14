@@ -1,21 +1,27 @@
 const Joi = require('joi')
+const bcrypt = require('bcrypt') //哈希算法密码加密模块 依赖Python  node-gyp  windows-build-tools  注意安装
+const {
+    User,
+    validateUser
+} = require('../../model/user')
 module.exports = async (ctx, next) => {
-    // console.log(ctx.request.body)
-    const content = ctx.request.body
-    const schema = Joi.object({
-        username: Joi.string().min(2).max(12).required().error(new Error('username format err')),
-        email: Joi.string().email().required().error(new Error('这出错啦')),
-        password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required().required().error(new Error('这出错啦')),
-        role: Joi.string().valid('normal', 'admin').required().error(new Error('这出错啦')),
-        state: Joi.number().valid(0, 1).required().error(new Error('这出错啦')),
-    })
-    try {
-        await schema.validate(content)
-        // console.log('pass')
-    } catch (e) {
-        console.log('err')
-        // ctx.redirect(`/admin/user-edit?message=${e.message}`)
-        ctx.body = e
+    let content = ctx.request.body
+    const value = validateUser(content) //user data verify module 
+    if (value.error) {
+        let err = value.error
+        ctx.redirect(`/admin/user-edit?message=${err}`) //为什么传过去的参数总是多出20% ??
+    } else {
+        let userExist = await User.findOne({
+            email: content.email
+        }) //return object
+        if (userExist) {
+            return ctx.redirect(`/admin/user-edit?message=邮箱已被注册`) //  错误处理中间件？？？
+        } else { //allow add   start encrypt it
+            const salt = await bcrypt.genSalt(10)
+            const password = await bcrypt.hash(content.password, salt)
+            content.password = password
+            await User.create(content)
+            ctx.redirect('/admin/user')
+        }
     }
-
 }

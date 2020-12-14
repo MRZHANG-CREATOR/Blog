@@ -66,10 +66,8 @@ router.post('/admin/login', KoaBody(), async (ctx, next) => {
     if (user) {
         let pwdRight = await bcrypt.compare(password, user.password) //密码比对
         if (pwdRight) {
-            // console.log('user exist')
             ctx.session.user = user
             ctx.redirect('/admin/user') //重定向到user页面
-            // console.log('rediret sucess')
         } else {
             ctx.body = "<h1>Password error</h1>"
         }

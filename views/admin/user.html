@@ -45,56 +45,34 @@
                     </tr>
                 </thead>
                 <tbody>
+                {% for user in users %}
                     <tr>
-                        <td>5b9a716cb2d2bf17706bcc0a</td>
-                        <td>wangjian</td>
-                        <td>wjb19891223@163.com</td>
-                        <td>超级管理员</td>
-                        <td>正常</td>
+                        <td>{{user.id}}</td>
+                        <td>{{user.username}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{'超级管理员' if user.role=='admin' else '普通用户'}}</td>
+                        <td>{{'启用' if user.state=='0' else '禁用'}}</td>
                         <td>
-                            <a href="user-edit.html" class="glyphicon glyphicon-edit"></a>
+                            <a href="/admin/user-edit?id={{user._id}}" class="glyphicon glyphicon-edit"></a>
                             <i class="glyphicon glyphicon-remove" data-toggle="modal" data-target=".confirm-modal"></i>
                         </td>
                     </tr>
-                    <tr>
-                        <td>5b9a716cb2d2bf17706bcc0a</td>
-                        <td>wangjian</td>
-                        <td>wjb19891223@163.com</td>
-                        <td>普通用户</td>
-                        <td>禁用</td>
-                        <td>
-                            <a href="user-edit.html" class="glyphicon glyphicon-edit"></a>
-                            <i class="glyphicon glyphicon-remove" data-toggle="modal" data-target=".confirm-modal"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>5b9a716cb2d2bf17706bcc0a</td>
-                        <td>wangjian</td>
-                        <td>wjb19891223@163.com</td>
-                        <td>普通用户</td>
-                        <td>启用</td>
-                        <td>
-                            <a href="user-edit.html" class="glyphicon glyphicon-edit"></a>
-                            <i class="glyphicon glyphicon-remove" data-toggle="modal" data-target=".confirm-modal"></i>
-                        </td>
-                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
             <!-- /内容列表 -->
             <!-- 分页 -->
             <ul class="pagination">
-                <li>
-                    <a href="#">
+                <li style="display:{{'none' if page==1 else 'inline'}}">
+                    <a href="/admin/user?page={{page-1}}">
                         <span>&laquo;</span>
                     </a>
                 </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                    <a href="#">
+                {% for i in range(1, totalPage+1) -%}
+                    <li><a href="/admin/user?page={{i}}">{{i}}</a></li>
+                    {%- endfor %}
+                <li style="display:{{'none' if page==totalPage else 'inline'}}">
+                    <a href="/admin/user?page={{page-0+1}}">
                         <span>&raquo;</span>
                     </a>
                 </li>

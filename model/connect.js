@@ -1,3 +1,4 @@
+//database connection
 const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/blog', {
         useUnifiedTopology: true,

@@ -27,26 +27,26 @@
             <!-- 分类标题 -->
             <div class="title">
                 <h4>{{userInfo.username}}</h4>
-                <p class="tips">错误信息</p>
+                <p class="tips">{{message}}</p>
             </div>
             <!-- /分类标题 -->
             <form class="form-container" method="POST" action="/admin/user-edit-fn">
                 <div class="form-group">
                     <label>用户名</label>
-                    <input type="text" name="username" class="form-control" placeholder="请输入用户名">
+                    <input type="text" name="username" class="form-control" placeholder="请输入用户名" value="{{userEdit.username}}">
                 </div>
                 <div class="form-group">
                     <label>邮箱</label>
-                    <input type="email" name="email" class="form-control" placeholder="请输入邮箱地址">
+                    <input type="email" name="email" class="form-control" placeholder="请输入邮箱地址" value="{{userEdit.email}}">
                 </div>
                 <div class="form-group">
                     <label>密码</label>
-                    <input type="password" name="password" class="form-control" placeholder="请输入密码">
+                    <input type="password" name="password" class="form-control" placeholder="请输入密码"  value="{{userEdit.password}}">
                 </div>
                 <div class="form-group">
                     <label>角色</label>
-                    <select class="form-control" name="role">
-                        <option value="normal">普通用户</option>
+                    <select class="form-control" name="role" >
+                        <option value="normal" >普通用户</option>
                         <option value="admin">超级管理员</option>
                     </select>
                 </div>
