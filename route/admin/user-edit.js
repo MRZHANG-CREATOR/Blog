@@ -7,17 +7,21 @@ module.exports = async (ctx, next) => {
         id
     } = ctx.query
     if (id) {
-        let userEdit = await User.findOne({
+        const userEdit = await User.findOne({
             _id: id
         })
-        console.log(userEdit)
-        ctx.render('user-edit', {
-            message: message
+        // console.log(userEdit)
+        await ctx.render('user-edit', {
+            message: message,
+            userEdit: userEdit,
+            link: "/admin/user-modify?id=" + id,
+            button: "Modification"
         })
     } else {
-        console.log('add option')
-        ctx.render('user-edit', {
-            message: message
+        await ctx.render('user-edit', {
+            message: message,
+            link: "/admin/user-edit",
+            button: "Add"
         })
     }
 

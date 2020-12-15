@@ -4,6 +4,7 @@ const Router = require('koa-router')
 const router = new Router()
 const static = require('koa-static-cache')
 const KoaBody = require('koa-body')
+const KoaParser = require('koa-bodyparser')
 const bcrypt = require('bcrypt') //哈希算法密码加密模块 依赖Python  node-gyp  windows-build-tools  注意安装
 const session = require('koa-session') //return way
 const nunjucks = require('koa-nunjucks-2')
@@ -11,8 +12,8 @@ require('./model/connect')
 const {
     User
 } = require('./model/user')
+app.use(KoaParser())
 const fs = require('fs');
-const koaBody = require('koa-body');
 app.keys = ['zhangpipi'];
 const CONFIG = { //session options
     key: 'zhanghuanhuan',
@@ -82,8 +83,8 @@ app.use(async (ctx, next) => { //公共资源分发中间件
 })
 router.get('/admin/user', KoaBody(), require('./route/admin/user')) //user router
 router.get('/admin/user-edit', require('./route/admin/user-edit')) //user-edit router
-router.post('/admin/user-edit-fn', koaBody(), require('./route/admin/user-edit-fn')) //user-edit router
-
+router.post('/admin/user-edit-fn', require('./route/admin/user-edit-fn')) //user-edit router
+router.post('/admin/user-modify', require('./route/admin/modify')) //user-modify router
 app.use(router.routes())
 app.listen(8000, (0, 0, 0, 0), (req, res) => {
     console.log('http://localhost:8000')
