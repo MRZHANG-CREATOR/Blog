@@ -8,10 +8,7 @@ const KoaParser = require('koa-bodyparser')
 const bcrypt = require('bcrypt') //哈希算法密码加密模块 依赖Python  node-gyp  windows-build-tools  注意安装
 const session = require('koa-session') //return way
 const nunjucks = require('koa-nunjucks-2')
-require('./model/connect')
-const {
-    User
-} = require('./model/user')
+require('./model/connect') //mongoose
 app.use(KoaParser())
 const fs = require('fs');
 app.keys = ['zhangpipi'];
@@ -53,38 +50,22 @@ app.use(static('./public', {
     gzip: true
 }))
 app.use(require('./middleware/loginGuard')) //登录拦截中间件
-router.get('/admin/login', (ctx, next) => {
-    ctx.render('login')
+router.get('/admin/login', async (ctx, next) => {
+    await ctx.render('login')
 })
-router.post('/admin/login', KoaBody(), async (ctx, next) => {
-    const {
-        email,
-        password
-    } = ctx.request.body;
-    let user = await User.findOne({
-        email
-    }) //find success  return object
-    if (user) {
-        let pwdRight = await bcrypt.compare(password, user.password) //密码比对
-        if (pwdRight) {
-            ctx.session.user = user
-            ctx.redirect('/admin/user') //重定向到user页面
-        } else {
-            ctx.body = "<h1>Password error</h1>"
-        }
-    } else {
-        ctx.res.writeHead(400)
-        ctx.body = "<h1>Username inexistence or password error</h1>"
-    }
-})
+router.post('/admin/login', require('./route/admin/login'))
 app.use(async (ctx, next) => { //公共资源分发中间件
     ctx.state.userInfo = ctx.session.user
     await next()
 })
-router.get('/admin/user', KoaBody(), require('./route/admin/user')) //user router
+router.get('/admin/user', KoaBody(), require('./route/admin/userPage')) //user router
 router.get('/admin/user-edit', require('./route/admin/user-edit')) //user-edit router
-router.post('/admin/user-edit-fn', require('./route/admin/user-edit-fn')) //user-edit router
+router.post('/admin/user-edit', require('./route/admin/user-edit-fn')) //user-edit  post router
 router.post('/admin/user-modify', require('./route/admin/modify')) //user-modify router
+router.get('/admin/delete', require('./route/admin/user-delete')) //delete router
+router.get('/admin/article', require('./route/admin/article')) //article router
+router.get('/admin/article-edit', require('./route/admin/article-edit')) //aricle-edit router
+
 app.use(router.routes())
 app.listen(8000, (0, 0, 0, 0), (req, res) => {
     console.log('http://localhost:8000')

@@ -2,6 +2,7 @@ const {
     User
 } = require('../../model/user')
 module.exports = async (ctx, next) => {
+    ctx.state.currentPage = 'user'
     const {
         message,
         id
@@ -10,7 +11,6 @@ module.exports = async (ctx, next) => {
         const userEdit = await User.findOne({
             _id: id
         })
-        // console.log(userEdit)
         await ctx.render('user-edit', {
             message: message,
             userEdit: userEdit,
@@ -24,5 +24,4 @@ module.exports = async (ctx, next) => {
             button: "Add"
         })
     }
-
 }

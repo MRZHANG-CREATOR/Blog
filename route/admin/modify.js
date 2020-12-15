@@ -31,12 +31,12 @@ module.exports = async ctx => {
         // ctx.redirect(`/admin/user-edit?id=${id}&message=err:密码错误`, {
         //     userEdit: ctx.request.body
         // })
-        // ctx.render('user-edit', {
-        //     message: "err:密码错误",
-        //     userEdit: ctx.request.body,
-        //     link: "/admin/user-modify?id=" + id,
-        //     button: "Modification"
-        // })
+        await ctx.render('user-edit', {
+            message: "err:密码错误",
+            userEdit: ctx.request.body,
+            link: "/admin/user-modify?id=" + id,
+            button: "Modification"
+        })
     }
 
 }

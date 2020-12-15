@@ -2,6 +2,7 @@ const {
     User
 } = require('../../model/user')
 module.exports = async (ctx, next) => {
+    ctx.state.currentPage = 'user'
     let page = ctx.query.page || 1; //users page
     let pageSize = 2 //page size
     let count = await User.countDocuments({}) //Query number of users
@@ -13,6 +14,7 @@ module.exports = async (ctx, next) => {
     await ctx.render('user', {
         users: users, // username: ctx.session.username //只有当前网页能获得，需要共用的话存在state中,已经转到state了
         page: page,
-        totalPage: totalPage
+        totalPage: totalPage,
+        count: count
     })
 }

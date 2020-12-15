@@ -5,7 +5,7 @@ mongoose.connect('mongodb://localhost/blog', {
         useNewUrlParser: true
     })
     .then(() => {
-        console.log('success')
+        console.log('Database connect success')
     }).catch(() => {
-        console.log('fail')
+        console.log('Database connect fail')
     })

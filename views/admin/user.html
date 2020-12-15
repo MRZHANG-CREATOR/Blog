@@ -28,7 +28,7 @@
                 <h4>用户:
                     {{userInfo.username}}
                 </h4>
-                <span>找到1个用户</span>
+                <span>找到{{count}}个用户</span>
                 <a href="/admin/user-edit" class="btn btn-primary new">新增用户</a>
             </div>
             <!-- /分类标题 -->
@@ -54,7 +54,7 @@
                         <td>{{'启用' if user.state=='0' else '禁用'}}</td>
                         <td>
                             <a href="/admin/user-edit?id={{user._id}}" class="glyphicon glyphicon-edit"></a>
-                            <i class="glyphicon glyphicon-remove" data-toggle="modal" data-target=".confirm-modal"></i>
+                            <i class="glyphicon glyphicon-remove delete" data-toggle="modal" data-target=".confirm-modal" data-id='{{user.id}}'></i>
                         </td>
                     </tr>
                     {% endfor %}
@@ -84,13 +84,14 @@
         <!-- 删除确认弹出框 -->
         <div class="modal fade confirm-modal">
             <div class="modal-dialog modal-lg">
-                <form class="modal-content">
+                <form class="modal-content" action='/admin/delete' method='GET'>
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                         <h4 class="modal-title">请确认</h4>
                     </div>
                     <div class="modal-body">
                         <p>您确定要删除这个用户吗?</p>
+                        <input type="hidden" name="id" id='deleteUser' ></input>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -101,6 +102,14 @@
         </div>
         <!-- /删除确认弹出框 -->
         {{super()}}
+<script >
+$(".delete").on('click',function(){
+    
+    let id=$(this).attr('data-id')
+    console.log(id)
+    $('#deleteUser').val(id)
+})
+</script>
     </body>
 
     </html>{% endblock %}

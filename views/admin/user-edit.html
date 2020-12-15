@@ -30,7 +30,7 @@
                 <p class="tips">{{message}}</p>
             </div>
             <!-- /分类标题 -->
-            <form class="form-container" method="{{ 'get' if button=='Add' else 'post'}}" action="{{link}}">
+            <form class="form-container" method="POST" action="{{link}}">
                 <div class="form-group">
                     <label>用户名</label>
                     <input type="text" name="username" class="form-control" placeholder="请输入用户名" value="{{userEdit.username}}">
