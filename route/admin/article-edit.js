@@ -1,4 +1,4 @@
-module.exports = ctx => {
+module.exports = async ctx => {
     ctx.state.currentPage = 'article'
-    ctx.render('article-edit')
+    await ctx.render('article-edit')
 }
