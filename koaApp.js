@@ -9,6 +9,8 @@ const bcrypt = require('bcrypt') //哈希算法密码加密模块 依赖Python  
 const session = require('koa-session') //return way
 const nunjucks = require('koa-nunjucks-2') //模板引擎
 const dateFormat = require('dateformat') //日期格式修改模块
+const morgan = require('koa-morgan') //引入morgan模块
+const config = require('config')
 require('./model/connect') //mongoose
 app.use(KoaParser())
 const fs = require('fs');
@@ -40,7 +42,7 @@ const CONFIG = { //session options
 app.use(session(CONFIG, app));
 app.use(nunjucks({
     ext: "njk",
-    path: __dirname + '/views/admin',
+    path: __dirname + '/views',
     nunjucksConfig: {
         trimBlocks: true
     }
@@ -50,9 +52,11 @@ app.use(static('./public', {
     dynamic: true,
     gzip: true
 }))
+router.get("/", require('./route/home/home'))
+router.get("/article", require('./route/home/article'))
 app.use(require('./middleware/loginGuard')) //登录拦截中间件
 router.get('/admin/login', async (ctx, next) => {
-    await ctx.render('login')
+    await ctx.render('admin/login')
 })
 router.post('/admin/login', require('./route/admin/login'))
 app.use(async (ctx, next) => { //公共资源分发中间件
@@ -60,6 +64,15 @@ app.use(async (ctx, next) => { //公共资源分发中间件
     ctx.state.dateFormat = dateFormat
     await next()
 })
+// console.log(config.get('title'))
+//获取系统环境变量 返回值是对象
+// console.log(process.env)
+if (process.env.NODE_ENV == 'development') {
+    console.log('开发环境')
+    app.use(morgan())
+} else {
+    console.log('生产环境')
+}
 router.get('/admin/user', KoaBody(), require('./route/admin/userPage')) //user router
 router.get('/admin/user-edit', require('./route/admin/user-edit')) //user-edit router
 router.post('/admin/user-edit', require('./route/admin/user-edit-fn')) //user-edit  post router
@@ -68,7 +81,6 @@ router.get('/admin/delete', require('./route/admin/user-delete')) //delete route
 router.get('/admin/article', require('./route/admin/article')) //article router
 router.get('/admin/article-edit', require('./route/admin/article-edit')) //aricle-edit router
 router.post('/admin/article-add', require('./route/admin/article-add')) //article-add  post router
-
 app.use(router.routes())
 app.listen(8000, (0, 0, 0, 0), (req, res) => {
     console.log('http://localhost:8000')

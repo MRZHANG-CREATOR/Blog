@@ -4,7 +4,6 @@ const {
     Article
 } = require('../../model/article')
 module.exports = async (ctx, next) => {
-    console.log('form')
     // formidable模块  支持get post 请求  还支持文件上传
     const form = new formidable({
         uploadDir: path.join(__dirname, '../', '../', 'public', 'uploads'),

@@ -11,14 +11,14 @@ module.exports = async (ctx, next) => {
         const userEdit = await User.findOne({
             _id: id
         })
-        await ctx.render('user-edit', {
+        await ctx.render('admin/user-edit', {
             message: message,
             userEdit: userEdit,
             link: "/admin/user-modify?id=" + id,
             button: "Modification"
         })
     } else {
-        await ctx.render('user-edit', {
+        await ctx.render('admin/user-edit', {
             message: message,
             link: "/admin/user-edit",
             button: "Add"

@@ -3,8 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>首页</title>
-	<link rel="stylesheet" href="css/base.css">
-	<link rel="stylesheet" href="css/index.css">
+	<link rel="stylesheet" href="/public/home/css/base.css">
+	<link rel="stylesheet" href="/public/home/css/index.css">
+	<link rel="icon" href="/public/kid.jpg" sizes="16x16" type="image/png">
 </head>
 <body>
 	<!-- 头部框架开始 -->
@@ -12,7 +13,7 @@
 		<div class="w1100">
 			<!-- 网站logo开始 -->
 			<h1 class="logo fl">
-				<a href="default.html"><img src="images/logo.png" alt="黑马程序员"></a>
+				<a href="default.html"><img src="/public/home/images/logo.png" alt="黑马程序员"></a>
 			</h1>
 			<!-- 网站logo结束 -->
 			<!-- 网站导航开始 -->
@@ -30,9 +31,28 @@
 	<!-- 头部框架结束 -->
 	<!-- 文章列表开始 -->
 	<ul class="list w1100">
+		{% for item in result.records %}
+
+	<li class="{{ 'fl' if loop.index%2==1 else 'fr'}}">
+			<a href="article.html" class="thumbnail">
+				<img src="/public{{item.cover}}">
+			</a>
+			<div class="content">
+				<a class="article-title" href="article.html">{{item.title}}</a>
+				<div class="article-info">
+					<span class="author">{{item.author.username}}</span>
+					<span>{{dateFormat(item.publishDate,'yyyy-mm-dd')}}</span>
+				</div>
+				<div class="brief">
+				{{item.conten}}
+					前言 “我们相信互联网的世界和实体的商业世界是一个世界。数字、数据化、技术，使得这两个世界走在一起，让这两个世界能够发生很美好的变化，创造更多的客户价值和商业价值。”—...
+				</div>
+			</div>
+		</li>
+		{%endfor%}
 		<li class="fl">
 			<a href="article.html" class="thumbnail">
-				<img src="images/1.jpg">
+				<img src="/public/home/images/1.jpg">
 			</a>
 			<div class="content">
 				<a class="article-title" href="article.html">阿里巴巴旗下的1688－VR市场 打造批发新体验</a>
@@ -47,7 +67,7 @@
 		</li>
 		<li class="fr">
 			<a href="article.html" class="thumbnail">
-				<img src="images/2.png">
+				<img src="/public/home/images/2.png">
 			</a>
 			<div class="content">
 				<a class="article-title" href="article.html">
@@ -63,7 +83,7 @@
 		</li>
 		<li class="fl">
 			<a href="article.html" class="thumbnail">
-				<img src="images/3.jpg">
+				<img src="/public/home/images/3.jpg">
 			</a>
 			<div class="content">
 				<a class="article-title" href="article.html">UCAN——复杂信息传递的品牌设计方法探索</a>
@@ -78,7 +98,7 @@
 		</li>
 		<li class="fr">
 			<a href="article.html" class="thumbnail">
-				<img src="images/4.jpg">
+				<img src="/public/home/images/4.jpg">
 			</a>
 			<div class="content">
 				<a class="article-title" href="article.html">
@@ -95,7 +115,7 @@
 		</li>
 		<li class="fl">
 			<a href="article.html" class="thumbnail">
-				<img src="images/5.png">
+				<img src="/public/home/images/5.png">
 			</a>
 			<div class="content">
 				<a class="article-title" href="article.html">SCARP-视觉设计师应该拥有的体验思维——收藏夹升级阶段性思考心得</a>
@@ -110,7 +130,7 @@
 		</li>
 		<li class="fr">
 			<a href="article.html" class="thumbnail">
-				<img src="images/6.png">
+				<img src="/public/home/images/6.png">
 			</a>
 			<div class="content">
 				<a class="article-title" href="article.html">B类电商平台立体化品牌建设 – 大企业采购品牌升级一期小结</a>

@@ -31,7 +31,7 @@ module.exports = async ctx => {
         // ctx.redirect(`/admin/user-edit?id=${id}&message=err:密码错误`, {
         //     userEdit: ctx.request.body
         // })
-        await ctx.render('user-edit', {
+        await ctx.render('admin/user-edit', {
             message: "err:密码错误",
             userEdit: ctx.request.body,
             link: "/admin/user-modify?id=" + id,

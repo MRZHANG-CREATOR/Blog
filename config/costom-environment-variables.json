@@ -1,0 +1,16 @@
+{ 
+  "Customer":{ 
+    "dbConfig":{ 
+      "pwd":"APP_PASSWORD"
+    } ,
+    "credit":{ 
+      "initialDays":"CR_ID" 
+    } ,
+    "settings":{ 
+      "adminAccounts":{ 
+        "__name":"ADMIN_ACCS",
+        "__format”：":"json"
+      } 
+    } 
+  } 
+}

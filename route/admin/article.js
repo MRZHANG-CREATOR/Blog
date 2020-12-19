@@ -7,7 +7,7 @@ module.exports = async (ctx, next) => {
     ctx.state.currentPage = 'article'
     let articles = await pagination(Article).find().page(page).size(2).display(3).populate('author').exec() //多集合联合查询
     // console.log(articles)
-    await ctx.render('article', {
+    await ctx.render('admin/article', {
         articles: articles
     })
 }
