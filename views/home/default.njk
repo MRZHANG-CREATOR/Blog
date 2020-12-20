@@ -19,10 +19,10 @@
 			<!-- 网站导航开始 -->
 			<ul class="navigation fr">
 				<li>
-					<a class="active" href="index.html">首页</a>
+					<a class="active" href="/home">首页</a>
 				</li>
 				<li>
-					<a href="#">登录</a>
+					<a href="/admin/login">登录</a>
 				</li>
 			</ul>
 			<!-- 网站导航结束 -->
@@ -34,18 +34,18 @@
 		{% for item in result.records %}
 
 	<li class="{{ 'fl' if loop.index%2==1 else 'fr'}}">
-			<a href="article.html" class="thumbnail">
+			<a href="/article?id={{item._id}}" class="thumbnail">
 				<img src="/public{{item.cover}}">
 			</a>
 			<div class="content">
-				<a class="article-title" href="article.html">{{item.title}}</a>
+				<a class="article-title" href="/article?id={{item._id}}">{{item.title}}</a>
 				<div class="article-info">
 					<span class="author">{{item.author.username}}</span>
 					<span>{{dateFormat(item.publishDate,'yyyy-mm-dd')}}</span>
 				</div>
 				<div class="brief">
-				{{item.conten}}
-					前言 “我们相信互联网的世界和实体的商业世界是一个世界。数字、数据化、技术，使得这两个世界走在一起，让这两个世界能够发生很美好的变化，创造更多的客户价值和商业价值。”—...
+				{{item.content.substr(0,100)}}
+					{# 前言 “我们相信互联网的世界和实体的商业世界是一个世界。数字、数据化、技术，使得这两个世界走在一起，让这两个世界能够发生很美好的变化，创造更多的客户价值和商业价值。”—... #}
 				</div>
 			</div>
 		</li>
@@ -148,13 +148,15 @@
 
 	<!-- 分页开始 -->
 	<div class="page w1100">
-		<a href="#">上一页</a>
-		<a href="#" class="active">1</a>
-		<a href="#">2</a>
-		<a href="#">3</a>
-		<a href="#">4</a>
-		<a href="#">5</a>
-		<a href="#">下一页</a>
+	{% if result.page>1 %}
+		<a href="/home?page={{result.page-1}}">上一页</a>
+		{% endif %}
+		{%for i in result.display %}
+		<a href="/home?page={{i}}" class="{{ 'active' if result.page==i else ''}}">{{i}}</a>
+		{% endfor%}
+		{%if result.page<result.pages %}
+		<a href="/home?page={{result.page-0+1}}">下一页</a>
+		{% endif %}
 	</div>
 	<!-- 分页结束 -->
 </body>

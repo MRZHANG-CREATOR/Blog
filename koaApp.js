@@ -52,9 +52,10 @@ app.use(static('./public', {
     dynamic: true,
     gzip: true
 }))
-router.get("/", require('./route/home/home'))
+router.get("/home", KoaBody(), require('./route/home/home'))
 router.get("/article", require('./route/home/article'))
 app.use(require('./middleware/loginGuard')) //登录拦截中间件
+
 router.get('/admin/login', async (ctx, next) => {
     await ctx.render('admin/login')
 })

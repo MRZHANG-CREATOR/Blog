@@ -27,7 +27,7 @@ module.exports = async ctx => {
         })
         await ctx.redirect('/admin/user')
     } else {
-        console.log(username)
+        // console.log(username)
         // ctx.redirect(`/admin/user-edit?id=${id}&message=err:密码错误`, {
         //     userEdit: ctx.request.body
         // })

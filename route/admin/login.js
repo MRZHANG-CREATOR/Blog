@@ -15,7 +15,11 @@ module.exports = async (ctx, next) => {
         let pwdRight = await bcrypt.compare(password, user.password) //密码比对
         if (pwdRight) {
             ctx.session.user = user
-            ctx.redirect('/admin/user') //重定向到user页面
+            if (user.role == "admin") {
+                ctx.redirect('/admin/user') //重定向到user页面
+            } else {
+                ctx.redirect('/home') //重定向到user页面
+            }
         } else {
             ctx.body = "<h1>Password error</h1>"
         }
