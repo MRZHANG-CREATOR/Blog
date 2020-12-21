@@ -52,13 +52,13 @@ app.use(static('./public', {
     dynamic: true,
     gzip: true
 }))
+router.get('/admin/login', async (ctx) => {
+    await ctx.render('admin/login');
+})
+app.use(require('./middleware/loginGuard')) //登录拦截中间件
 router.get("/home", KoaBody(), require('./route/home/home'))
 router.get("/article", require('./route/home/article'))
-app.use(require('./middleware/loginGuard')) //登录拦截中间件
 
-router.get('/admin/login', async (ctx, next) => {
-    await ctx.render('admin/login')
-})
 router.post('/admin/login', require('./route/admin/login'))
 app.use(async (ctx, next) => { //公共资源分发中间件
     ctx.state.userInfo = ctx.session.user

@@ -54,14 +54,17 @@
 					<p>随着科技和时代的发展，如何技术与用户习惯进行有效链接，如何以最优的设计解决方案让各种新技术&amp;新产品与物理场景发生关联，如何让用户能够体验到更流畅、更智能化的体验，成为我们1688设计师团队励志创造的方向，将电影中可以看到的科技感受真正实现为用户服务，我们就是这样一个设计团队，欢迎各界有志青年加入，欢迎各位提供交流机会，微信号：myricefeng；</p> #}
 				</div>
 				<div class="article-comment">
+				{{if userInfo}}
 					<h4>评论</h4>
-					
 					<form class="comment-form">
 						<textarea class="comment"></textarea>
 						<div class="items">
 							<input type="submit" value="提交">
 						</div>
 					</form>
+					{{else}}
+					<div><h1>先登录再评论</h1></div>
+					{{endif}}
 					<div class="comment-list">
 						<div class="mb10">
 							<div class="article-info">
