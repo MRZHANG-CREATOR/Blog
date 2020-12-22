@@ -14,6 +14,7 @@ const config = require('config')
 require('./model/connect') //mongoose
 app.use(KoaParser())
 const fs = require('fs');
+const koaBody = require('koa-body');
 app.keys = ['zhangpipi'];
 const CONFIG = { //session options
     key: 'zhanghuanhuan',
@@ -58,7 +59,10 @@ router.get('/admin/login', async (ctx) => {
 app.use(require('./middleware/loginGuard')) //登录拦截中间件
 router.get("/home", KoaBody(), require('./route/home/home'))
 router.get("/article", require('./route/home/article'))
-
+router.get('/favicon.ico', async ctx => {
+    ctx.body = fs.readFile('/public/kid.jpg')
+})
+router.get('/admin/loginout', require('./route/admin/loginout'))
 router.post('/admin/login', require('./route/admin/login'))
 app.use(async (ctx, next) => { //公共资源分发中间件
     ctx.state.userInfo = ctx.session.user
@@ -82,6 +86,7 @@ router.get('/admin/delete', require('./route/admin/user-delete')) //delete route
 router.get('/admin/article', require('./route/admin/article')) //article router
 router.get('/admin/article-edit', require('./route/admin/article-edit')) //aricle-edit router
 router.post('/admin/article-add', require('./route/admin/article-add')) //article-add  post router
+router.post('/home/comment', koaBody(), require('./route/home/comment')) //comment  post router
 app.use(router.routes())
 app.listen(8000, (0, 0, 0, 0), (req, res) => {
     console.log('http://localhost:8000')

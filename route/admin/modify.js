@@ -2,7 +2,6 @@ const bcrypt = require('bcrypt')
 const {
     User
 } = require('../../model/user')
-
 module.exports = async ctx => {
     const {
         username,
@@ -27,10 +26,6 @@ module.exports = async ctx => {
         })
         await ctx.redirect('/admin/user')
     } else {
-        // console.log(username)
-        // ctx.redirect(`/admin/user-edit?id=${id}&message=err:密码错误`, {
-        //     userEdit: ctx.request.body
-        // })
         await ctx.render('admin/user-edit', {
             message: "err:密码错误",
             userEdit: ctx.request.body,
@@ -38,5 +33,4 @@ module.exports = async ctx => {
             button: "Modification"
         })
     }
-
 }
