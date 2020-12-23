@@ -1,8 +1,17 @@
 const {
     Comment
 } = require('../../model/comment')
-module.exports = async (ctx, next) => {
-    // let bpdy = ctx.request.body
-    // console.log(bpdy)
+module.exports = (ctx, next) => {
+    const {
+        content,
+        uid,
+        aid
+    } = ctx.request.body
+    console.log(bpdy)
+    Comment.create({
+        content: content,
+        uid: uid,
+        aid: aid,
+    })
     ctx.body = 'bpdy'
 }

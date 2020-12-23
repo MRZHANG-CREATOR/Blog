@@ -60,7 +60,7 @@ app.use(require('./middleware/loginGuard')) //登录拦截中间件
 router.get("/home", KoaBody(), require('./route/home/home'))
 router.get("/article", require('./route/home/article'))
 router.get('/favicon.ico', async ctx => {
-    ctx.body = fs.readFile('/public/kid.jpg')
+    ctx.body = ""
 })
 router.get('/admin/loginout', require('./route/admin/loginout'))
 router.post('/admin/login', require('./route/admin/login'))
@@ -86,7 +86,7 @@ router.get('/admin/delete', require('./route/admin/user-delete')) //delete route
 router.get('/admin/article', require('./route/admin/article')) //article router
 router.get('/admin/article-edit', require('./route/admin/article-edit')) //aricle-edit router
 router.post('/admin/article-add', require('./route/admin/article-add')) //article-add  post router
-router.post('/home/comment', koaBody(), require('./route/home/comment')) //comment  post router
+router.post('/home/comment', require('./route/home/comment')) //comment  post router   post 不能加koabody()了
 app.use(router.routes())
 app.listen(8000, (0, 0, 0, 0), (req, res) => {
     console.log('http://localhost:8000')

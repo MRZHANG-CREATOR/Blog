@@ -82,9 +82,9 @@
         file.onchange=function(){
             let reader=new FileReader()
             reader.readAsDataURL(this.files[0])//异步方法，不能拿返回值，需要监听事件
-             reader.onload=function(){
-           console.log(reader.result)
-           preview.src=reader.result
+            reader.onload=function(){
+            console.log(reader.result)
+            preview.src=reader.result
 }
         }
     </script>
