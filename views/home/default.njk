@@ -13,7 +13,7 @@
 		<div class="w1100">
 			<!-- 网站logo开始 -->
 			<h1 class="logo fl">
-				<a href="default.html"><img src="/public/home/images/logo.png" alt="黑马程序员"></a>
+				<a href="/home"><img src="/public/GitHub.jpg" alt="Blog"></a>
 			</h1>
 			<!-- 网站logo结束 -->
 			<!-- 网站导航开始 -->
@@ -41,7 +41,6 @@
 	<!-- 文章列表开始 -->
 	<ul class="list w1100">
 		{% for item in result.records %}
-
 	<li class="{{ 'fl' if loop.index%2==1 else 'fr'}}">
 			<a href="/article?id={{item._id}}" class="thumbnail">
 				<img src="/public{{item.cover}}">

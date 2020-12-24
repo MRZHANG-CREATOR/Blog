@@ -7,11 +7,12 @@ module.exports = (ctx, next) => {
         uid,
         aid
     } = ctx.request.body
-    console.log(bpdy)
+    // console.log(bpdy)
     Comment.create({
         content: content,
         uid: uid,
         aid: aid,
+        time: new Date()
     })
-    ctx.body = 'bpdy'
+    ctx.redirect('/article?id=' + aid)
 }

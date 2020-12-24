@@ -5,7 +5,7 @@ const router = new Router()
 const static = require('koa-static-cache')
 const KoaBody = require('koa-body')
 const KoaParser = require('koa-bodyparser')
-const bcrypt = require('bcrypt') //哈希算法密码加密模块 依赖Python  node-gyp  windows-build-tools  注意安装
+// const bcrypt = require('bcrypt') //哈希算法密码加密模块 依赖Python  node-gyp  windows-build-tools  注意安装
 const session = require('koa-session') //return way
 const nunjucks = require('koa-nunjucks-2') //模板引擎
 const dateFormat = require('dateformat') //日期格式修改模块
@@ -13,8 +13,7 @@ const morgan = require('koa-morgan') //引入morgan模块
 const config = require('config')
 require('./model/connect') //mongoose
 app.use(KoaParser())
-const fs = require('fs');
-const koaBody = require('koa-body');
+// const fs = require('fs');
 app.keys = ['zhangpipi'];
 const CONFIG = { //session options
     key: 'zhanghuanhuan',
